@@ -9,3 +9,7 @@ Reely is a social watch-together platform featuring:
 
 ## Structure
 
+## Status
+
+🚧 Starter MVP – active development
+
