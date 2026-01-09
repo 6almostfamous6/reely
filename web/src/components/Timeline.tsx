@@ -1,39 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import PostCard from './PostCard';
+import { useEffect, useState } from 'react';
+import { apiFetch } from '../api/client';
+import { PostCard } from './PostCard';
 
-interface Post {
-  id: string;
-  content: string;
-  handle?: string;
-  created_at: string;
-}
-
-export default function Timeline() {
-  const [posts, setPosts] = useState<Post[]>([]);
+export function Timeline() {
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:4000/posts')
-      .then(res => res.json())
-      .then(data => {
-        setPosts(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    apiFetch('/posts')
+      .then(setPosts)
+      .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return <p style={{ textAlign: 'center' }}>Loading feed...</p>;
-  }
+  if (loading) return <div>Loading feed...</div>;
 
   return (
-    <div>
-      {posts.length === 0 && (
-        <p style={{ textAlign: 'center' }}>
-          No posts yet. Be the first 👋
-        </p>
-      )}
-
+    <div className="timeline">
       {posts.map(post => (
         <PostCard key={post.id} post={post} />
       ))}
