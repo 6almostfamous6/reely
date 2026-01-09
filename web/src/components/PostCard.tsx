@@ -19,3 +19,24 @@ export function PostCard({ post }: { post: any }) {
     </div>
   );
 }
+import '../styles/feed.css';
+
+export default function PostCard({ post }: any) {
+  return (
+    <div className="post-card">
+      <div className="post-header">
+        @{post.handle}
+      </div>
+
+      <div className="post-content">
+        {post.content}
+      </div>
+
+      <div className="post-actions">
+        <span>Like</span>
+        <span>Comment</span>
+        <span>Share</span>
+      </div>
+    </div>
+  );
+}
