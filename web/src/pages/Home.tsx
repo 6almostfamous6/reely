@@ -1,13 +1,14 @@
-import React from 'react';
-import CreatePost from '../components/CreatePost';
-import Timeline from '../components/Timeline';
-import '../styles/feed.css';
+import { useState } from 'react';
+import { Timeline } from '../components/Timeline';
+import { CreatePost } from '../components/CreatePost';
 
 export default function Home() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
   return (
-    <div className="feed-container">
-      <CreatePost />
-      <Timeline />
+    <div className="home">
+      <CreatePost onNewPost={() => setRefreshKey(k => k + 1)} />
+      <Timeline key={refreshKey} />
     </div>
   );
 }
