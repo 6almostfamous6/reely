@@ -1,30 +1,29 @@
-import { useState } from 'react';
-import { apiFetch } from '../api/client';
+import { useState } from "react";
+import axios from "axios";
 
-export function CreatePost({ onNewPost }: { onNewPost: (p: any) => void }) {
-  const [content, setContent] = useState('');
+export default function CreatePost() {
+  const [text, setText] = useState("");
 
-  async function submit() {
-    if (!content.trim()) return;
-
-    const post = await apiFetch('/posts', {
-      method: 'POST',
-      body: JSON.stringify({ content }),
-    });
-
-    onNewPost(post);
-    setContent('');
-  }
+  const handlePost = () => {
+    axios
+      .post("https://your-backend-url.up.railway.app/posts", { content: text })
+      .then(() => {
+        setText(""); // clear input
+        window.location.reload(); // simple refresh to update feed
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="create-post">
       <textarea
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        placeholder="What's happening?"
-        maxLength={280}
+        placeholder="What's on your mind?"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
-      <button onClick={submit}>Post</button>
+      <button disabled={!text.trim()} onClick={handlePost}>
+        Post
+      </button>
     </div>
   );
 }
