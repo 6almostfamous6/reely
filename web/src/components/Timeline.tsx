@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PostCard from "./PostCard";
 
+const API_URL = "BACKEND_URL_HERE";
+
 type Post = {
   id: number;
   author: string;
@@ -13,15 +15,19 @@ export default function Timeline() {
 
   useEffect(() => {
     axios
-      .get("https://your-backend-url.up.railway.app/posts")
+      .get(`${API_URL}/posts`)
       .then((res) => setPosts(res.data))
-      .catch((err) => console.error(err));
+      .catch(console.error);
   }, []);
 
   return (
     <div className="timeline">
       {posts.map((post) => (
-        <PostCard key={post.id} author={post.author} content={post.content} />
+        <PostCard
+          key={post.id}
+          author={post.author}
+          content={post.content}
+        />
       ))}
     </div>
   );
