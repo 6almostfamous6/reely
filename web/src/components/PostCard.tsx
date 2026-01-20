@@ -1,41 +1,22 @@
-export function PostCard({ post }: { post: any }) {
+type Props = {
+  author: string;
+  content: string;
+};
+
+export default function PostCard({ author, content }: Props) {
   return (
     <div className="post-card">
       <div className="post-header">
-        <strong>@{post.handle}</strong>
-        <span className="post-date">
-          {new Date(post.created_at).toLocaleString()}
-        </span>
+        <div className="avatar" />
+        <strong>{author}</strong>
       </div>
 
-      <div className="post-content">
-        {post.content}
-      </div>
+      <p>{content}</p>
 
       <div className="post-actions">
-        <button>👍 Like</button>
-        <button>💬 Comment</button>
-      </div>
-    </div>
-  );
-}
-import '../styles/feed.css';
-
-export default function PostCard({ post }: any) {
-  return (
-    <div className="post-card">
-      <div className="post-header">
-        @{post.handle}
-      </div>
-
-      <div className="post-content">
-        {post.content}
-      </div>
-
-      <div className="post-actions">
-        <span>Like</span>
-        <span>Comment</span>
-        <span>Share</span>
+        <button>Like</button>
+        <button>Comment</button>
+        <button>Share</button>
       </div>
     </div>
   );
