@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PostCard from "./PostCard";
 
-const API_URL = "BACKEND_URL_HERE";
+const API_URL = "reely-production.up.railway.app";
 
 type Post = {
   id: number;
