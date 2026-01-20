@@ -1,35 +1,58 @@
-.timeline {
-  max-width: 680px;
-  margin: 0 auto;
+body {
+  background: #f0f2f5;
+  font-family: Arial, sans-serif;
+}
+
+.feed-page {
+  max-width: 600px;
+  margin: auto;
   padding: 16px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.create-post textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.create-post button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  background: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 8px;
 }
 
 .post-card {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
 }
 
 .post-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 600;
 }
 
-.post-content {
-  margin: 12px 0;
-  font-size: 15px;
-  line-height: 1.5;
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
 }
 
 .post-actions {
   display: flex;
-  gap: 20px;
-  font-size: 14px;
-  color: #65676b;
-  cursor: pointer;
+  justify-content: space-around;
+  margin-top: 8px;
 }
-
