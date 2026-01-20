@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const BACKEND = "YOUR_BACKEND_URL";
+const BACKEND = "reely-production.up.railway.app";
 
 export default function Room() {
   const { id } = useParams();
