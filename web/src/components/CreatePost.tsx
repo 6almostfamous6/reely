@@ -1,17 +1,21 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_URL = "BACKEND_URL_HERE";
+
 export default function CreatePost() {
   const [text, setText] = useState("");
 
-  const handlePost = () => {
-    axios
-      .post("https://your-backend-url.up.railway.app/posts", { content: text })
-      .then(() => {
-        setText(""); // clear input
-        window.location.reload(); // simple refresh to update feed
-      })
-      .catch((err) => console.error(err));
+  const submitPost = async () => {
+    if (!text.trim()) return;
+
+    await axios.post(`${API_URL}/posts`, {
+      author: "Guest",
+      content: text,
+    });
+
+    setText("");
+    window.location.reload();
   };
 
   return (
@@ -21,10 +25,9 @@ export default function CreatePost() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button disabled={!text.trim()} onClick={handlePost}>
-        Post
-      </button>
+      <button onClick={submitPost}>Post</button>
     </div>
   );
 }
+
 
