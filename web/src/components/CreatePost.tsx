@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API_URL = "reely-production.up.railway.app";
+const API_URL = "reely-production.up.railway.ap";
 
 export default function CreatePost() {
   const [text, setText] = useState("");
