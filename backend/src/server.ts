@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
+import postsRoutes from "./posts/posts.routes";
 import roomsRoutes from "./rooms/rooms.routes";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/rooms", roomsRoutes);
+app.use("/posts", postsRoutes);
 
 type Post = {
   id: number;
