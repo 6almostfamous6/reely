@@ -1,26 +1,33 @@
-const BACKEND_URL = "reely-production.up.railway.app";
-
+import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import Timeline from "../components/Timeline";
 
+const BACKEND_URL = "https://reely-production.up.railway.app";
+
 export default function Home() {
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/posts`)
+      .then((res) => res.json())
+      .then((data) => setPosts(data))
+      .catch((err) => console.error("Failed to load posts:", err));
+  }, []);
+
   return (
     <div className="feed-page">
       <h1 className="logo">Reely</h1>
-      <CreatePost />
-      <Timeline />
+
+      <CreatePost
+        backendUrl={BACKEND_URL}
+        onPostCreated={() => {
+          fetch(`${BACKEND_URL}/posts`)
+            .then((res) => res.json())
+            .then((data) => setPosts(data));
+        }}
+      />
+
+      <Timeline posts={posts} />
     </div>
   );
 }
-const createRoom = async () => {
-  const res = await fetch(`${BACKEND}/rooms`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
-    })
-  });
-
-  const room = await res.json();
-  window.location.href = `/room/${room.id}`;
-};
