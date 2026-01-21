@@ -1,22 +1,15 @@
-type Props = {
-  author: string;
+type Post = {
+  id: number;
   content: string;
+  created_at: string;
 };
 
-export default function PostCard({ author, content }: Props) {
+export default function PostCard({ post }: { post: Post }) {
   return (
     <div className="post-card">
-      <div className="post-header">
-        <div className="avatar" />
-        <strong>{author}</strong>
-      </div>
-
-      <p>{content}</p>
-
-      <div className="post-actions">
-        <button>Like</button>
-        <button>Comment</button>
-        <button>Share</button>
+      <div className="post-content">{post.content}</div>
+      <div className="post-date">
+        {new Date(post.created_at).toLocaleString()}
       </div>
     </div>
   );
