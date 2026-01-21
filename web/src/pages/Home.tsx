@@ -1,3 +1,5 @@
+const BACKEND_URL = "reely-production.up.railway.app";
+
 import CreatePost from "../components/CreatePost";
 import Timeline from "../components/Timeline";
 
