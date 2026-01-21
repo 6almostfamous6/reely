@@ -1,31 +1,51 @@
 import { useState } from "react";
-import axios from "axios";
 
-const API_URL = "reely-production.up.railway.app";
+type CreatePostProps = {
+  backendUrl: string;
+  onPostCreated: () => void;
+};
 
-export default function CreatePost() {
-  const [text, setText] = useState("");
+export default function CreatePost({
+  backendUrl,
+  onPostCreated
+}: CreatePostProps) {
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const submitPost = async () => {
-    if (!text.trim()) return;
+    if (!content.trim()) return;
 
-    await axios.post(`${API_URL}/posts`, {
-      author: "Guest",
-      content: text,
-    });
+    setLoading(true);
 
-    setText("");
-    window.location.reload();
+    try {
+      await fetch(`${backendUrl}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ content })
+      });
+
+      setContent("");
+      onPostCreated(); // refresh feed
+    } catch (err) {
+      console.error("Failed to create post:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="create-post">
       <textarea
         placeholder="What's on your mind?"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
       />
-      <button onClick={submitPost}>Post</button>
+
+      <button onClick={submitPost} disabled={loading}>
+        {loading ? "Posting..." : "Post"}
+      </button>
     </div>
   );
 }
