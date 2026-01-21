@@ -1,47 +1,36 @@
 const express = require("express");
-const http = require("http");
 const cors = require("cors");
-const { Server } = require("socket.io");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: { origin: "*" }
-});
-
-/* In-memory demo data */
 let posts = [];
 
-/* API: get timeline */
+// Health check
+app.get("/", (req, res) => {
+  res.send("Reely backend running");
+});
+
+// Get posts
 app.get("/posts", (req, res) => {
   res.json(posts);
 });
 
-/* API: create post */
+// Create post
 app.post("/posts", (req, res) => {
-  const post = {
+  const newPost = {
     id: Date.now(),
-    content: req.body.content
+    content: req.body.content,
+    created_at: new Date().toISOString()
   };
 
-  posts.unshift(post);
-  io.emit("new-post", post);
-  res.json(post);
-});
-
-/* Real-time */
-io.on("connection", socket => {
-  console.log("User connected");
-
-  socket.on("chat", msg => {
-    io.emit("chat", msg);
-  });
+  posts.unshift(newPost);
+  res.json(newPost);
 });
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
