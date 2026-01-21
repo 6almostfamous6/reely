@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BACKEND_URL = "https://YOUR-RAILWAY-URL";
+const BACKEND_URL = "https://reely-production.up.railway.app";
 
 type Post = {
   id: number;
